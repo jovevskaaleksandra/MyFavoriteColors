@@ -1,6 +1,8 @@
 package com.aleksandra.myfavoritecolors.service.impl;
 
 import com.aleksandra.myfavoritecolors.exceptions.ColorAlreadyExists;
+import com.aleksandra.myfavoritecolors.exceptions.ColorFormatWrong;
+import com.aleksandra.myfavoritecolors.exceptions.ColorNameTooLong;
 import com.aleksandra.myfavoritecolors.exceptions.ColorNotFound;
 import com.aleksandra.myfavoritecolors.model.Color;
 import com.aleksandra.myfavoritecolors.repository.ColorRepository;
@@ -20,11 +22,21 @@ public class ColorServiceImpl implements ColorService {
     }
 
     @Override
-    public Color AddColor(Color color) throws ColorAlreadyExists {
-        Optional<Color> existingColor = this.colorRepository.findColorByName(color.getName());
-        if(existingColor.isPresent())
+    public Color AddColor(Color color) throws ColorAlreadyExists, ColorFormatWrong, ColorNameTooLong {
+        if(color.getName()==null || color.getCode()==null)
         {
-            throw new ColorAlreadyExists("Color already ecists");
+            throw new ColorFormatWrong("Please enter correct color format");
+        }
+        Optional<Color> existingColorByName = this.colorRepository.findColorByName(color.getName());
+        Optional<Color> existingColorByCode = this.colorRepository.findColorByCode(color.getCode());
+        if(existingColorByName.isPresent() || existingColorByCode.isPresent())
+        {
+            throw new ColorAlreadyExists("Color already exists");
+        }
+
+        if(color.getName().length()>100)
+        {
+            throw new ColorNameTooLong("Color name too long");
         }
         return colorRepository.save(color);
     }
