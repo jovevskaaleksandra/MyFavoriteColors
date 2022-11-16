@@ -1,10 +1,10 @@
-package mk.aleksandra.myfavoritecolors.Service.impl;
+package com.aleksandra.myfavoritecolors.service.impl;
 
-import mk.aleksandra.myfavoritecolors.Exceptions.ColorAlreadyExists;
-import mk.aleksandra.myfavoritecolors.Exceptions.ColorNotFound;
-import mk.aleksandra.myfavoritecolors.Model.Color;
-import mk.aleksandra.myfavoritecolors.Repository.ColorRepository;
-import mk.aleksandra.myfavoritecolors.Service.ColorService;
+import com.aleksandra.myfavoritecolors.exceptions.ColorAlreadyExists;
+import com.aleksandra.myfavoritecolors.exceptions.ColorNotFound;
+import com.aleksandra.myfavoritecolors.model.Color;
+import com.aleksandra.myfavoritecolors.repository.ColorRepository;
+import com.aleksandra.myfavoritecolors.service.ColorService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,17 +21,17 @@ public class ColorServiceImpl implements ColorService {
 
     @Override
     public Color AddColor(Color color) throws ColorAlreadyExists {
-        Optional<Color> existingColor = colorRepository.findByName(color.getName());
+        Optional<Color> existingColor = this.colorRepository.findColorByName(color.getName());
         if(existingColor.isPresent())
         {
-            throw new ColorAlreadyExists("Color already exists");
+            throw new ColorAlreadyExists("Color already ecists");
         }
         return colorRepository.save(color);
     }
 
     @Override
     public List<Color> GetColors() {
-        return this.colorRepository.findAll();
+        return colorRepository.findAll();
     }
 
     @Override

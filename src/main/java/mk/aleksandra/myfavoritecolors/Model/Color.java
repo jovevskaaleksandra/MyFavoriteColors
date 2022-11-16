@@ -3,6 +3,7 @@ package mk.aleksandra.myfavoritecolors.Model;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -19,11 +20,7 @@ public class Color {
     @Id
     public Long id;
 
-    @NotNull
-    @Column(unique = true, length = 30)
     public String Name;
 
-
-    @Column(unique = true)
     public String Code;
 }
