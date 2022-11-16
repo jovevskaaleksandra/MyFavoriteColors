@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/color")
+@RequestMapping("/")
 public class ColorController {
 
     private final ColorService colorService;
@@ -39,12 +39,12 @@ public class ColorController {
     public String addColor(@ModelAttribute("course") @RequestBody Color color, Model model) throws ColorAlreadyExists, ColorFormatWrong, ColorNameTooLong {
         this.colorService.AddColor(color);
         model.addAttribute("color","");
-        return "redirect:/color";
+        return "redirect:/";
     }
 
     @PostMapping("/{id}/delete")
     public String deleteColor(@PathVariable Long id) throws ColorNotFound {
         this.colorService.DeleteColorById(id);
-        return "redirect:/color";
+        return "redirect:/";
     }
 }

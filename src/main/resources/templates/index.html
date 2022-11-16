@@ -12,7 +12,7 @@
 <div><br>
    <h2>My Favorite Colors</h2>
 </div>
-<form method="post" action="" th:action="@{/color/add-color}" th:object="${color}">
+<form method="post" action="" th:action="@{/add-color}" th:object="${color}">
     <input type="text" th:value="${color?.getName()}" name="name" required value="♡     Color name" class="form-group col-md-2">
     <input type="color" th:value="${color?.getCode()}" name="code" required>
     <button type="submit" class="btn btn-dark font-weight-bold">+</button>
@@ -23,7 +23,7 @@
         <td th:bgcolor="${color.getCode()}">______</td>
         <td style="width: 400px" th:text="${color.getName()}">color.name</td>
         <td th:block>
-            <form th:action="@{'/color/{id}/delete' (id=${color.getId()})}" th:method="DELETE">
+            <form th:action="@{'/{id}/delete' (id=${color.getId()})}" th:method="DELETE">
                 <button type="submit">Remove color</button>
             </form>
         </td>
