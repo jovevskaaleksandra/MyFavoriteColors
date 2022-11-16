@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Favorite Colors</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+<div><br>
+   <h2>My Favorite Colors</h2>
+</div>
+<form method="post" action="" th:action="@{/color/add-color}" th:object="${color}">
+    <input type="text" th:value="${color?.getName()}" name="name" required value="♡     Color name" class="form-group col-md-2">
+    <input type="color" th:value="${color?.getCode()}" name="code" required>
+    <button type="submit" class="btn btn-dark font-weight-bold">+</button>
+</form>
+<h4>Color collection</h4>
+<table class="table table-borderless table-responsive table-sm">
+    <tr th:each="color: ${colors}">
+        <td th:bgcolor="${color.getCode()}">______</td>
+        <td style="width: 400px" th:text="${color.getName()}">color.name</td>
+        <td th:block>
+            <form th:action="@{'/color/{id}/delete' (id=${color.getId()})}" th:method="DELETE">
+                <button type="submit">Remove color</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
